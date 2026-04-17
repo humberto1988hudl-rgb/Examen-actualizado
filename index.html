@@ -20,7 +20,7 @@
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             color: var(--text);
             margin: 0;
-            padding: 20px;
+            padding: 10px;
             min-height: 100vh;
             background-color: var(--bg);
             background-image: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.5)), url('La-Aurora-107-Nicaragua-Robusto-2.png'); 
@@ -35,8 +35,8 @@
         .main-wrapper {
             display: flex;
             width: 100%;
-            max-width: 1200px;
-            min-height: 650px;
+            max-width: 1000px;
+            min-height: 550px;
             background: var(--card);
             backdrop-filter: blur(12px);
             border-radius: 24px;
@@ -46,7 +46,7 @@
         }
 
         .sidebar-catalog {
-            width: 40%;
+            width: 35%;
             background: #000;
             position: relative;
             display: flex;
@@ -68,21 +68,65 @@
             position: relative;
             z-index: 2;
             margin-top: auto;
-            padding: 30px;
+            padding: 20px;
             background: linear-gradient(transparent, rgba(0,0,0,0.9));
             color: white;
         }
 
-        .container { width: 60%; overflow-y: auto; max-height: 90vh; display: flex; flex-direction: column; }
+        .container { width: 65%; overflow-y: auto; max-height: 90vh; display: flex; flex-direction: column; }
         .hidden { display: none !important; }
-        .view-padding { padding: 50px; }
+        .view-padding { padding: 30px; }
 
+        /* --- AJUSTES COMPACTOS --- */
+        .welcome-box {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        /* Logo en 95px con margen de 30px */
+        .welcome-box img { 
+            height: 95px; 
+            width: auto; 
+            margin-bottom: 30px; 
+        }
+
+        .welcome-box h1 { font-size: 22px; margin: 0; color: #0f172a; }
+        .welcome-box p { font-size: 14px; margin: 5px 0 20px; color: #64748b; }
+
+        .instructions-block {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--blue);
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .name-fields { display: flex; gap: 8px; }
+
+        /* --- EXAMEN --- */
         .progress-container {
             width: 100%;
             height: 8px;
             background: #e2e8f0;
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             overflow: hidden;
         }
         .progress-bar {
@@ -94,16 +138,15 @@
 
         .question-box {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             border: 1px solid var(--border);
         }
 
         .question-text { 
-            font-size: 22px; 
+            font-size: 19px; 
             font-weight: 700; 
-            margin-bottom: 25px; 
+            margin-bottom: 20px; 
             line-height: 1.4; 
             color: #0f172a; 
         }
@@ -111,37 +154,25 @@
         .option-label { 
             display: flex; 
             align-items: center; 
-            padding: 16px; 
-            border: 2px solid var(--border); 
+            padding: 14px; 
+            border: 1px solid var(--border); 
             border-radius: 12px; 
-            margin-bottom: 12px; 
+            margin-bottom: 10px; 
             cursor: pointer; 
-            transition: all 0.2s; 
+            font-size: 15px;
             background: #fff;
         }
         .option-label:hover { border-color: var(--blue); background: #f8faff; }
         .option-label.selected { border-color: var(--blue); background: #eff6ff; }
-        .option-label input { margin-right: 15px; transform: scale(1.4); }
+        .option-label input { margin-right: 12px; }
 
-        .btn { padding: 16px 28px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 16px; }
-        .btn-primary { background: var(--blue); color: white; box-shadow: 0 4px 14px rgba(30, 111, 255, 0.4); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 111, 255, 0.5); }
+        .btn { padding: 14px 24px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 15px; }
+        .btn-primary { background: var(--blue); color: white; }
         .btn-outline { background: #f1f5f9; color: #64748b; }
-
-        /* Estilo para los inputs de registro */
-        .form-input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
 
         @media (max-width: 900px) { 
             .main-wrapper { flex-direction: column; }
-            .sidebar-catalog { width: 100%; height: 200px; }
+            .sidebar-catalog { width: 100%; height: 180px; }
             .container { width: 100%; }
         }
     </style>
@@ -152,29 +183,29 @@
     <div class="sidebar-catalog" id="slideshow">
         <div class="sidebar-info">
             <h3 style="margin:0">La Aurora</h3>
-            <p style="margin:5px 0 0; font-size:14px; opacity:0.8">Automatización e Innovación</p>
+            <p style="margin:5px 0 0; font-size:13px; opacity:0.8">Automatización e Innovación</p>
         </div>
     </div>
 
     <div class="container">
         <div id="view-start" class="view-padding">
-            <div style="text-align: center; margin-bottom: 35px;">
-                <img src="La_Aurora.png" alt="Logo" style="height: 80px; margin-bottom: 20px;">
-                <h1 style="margin:0; color:#0f172a">Evaluación Técnica</h1>
-                <p style="color:#64748b">Departamento de Electrónica</p>
-            </div>
-            
-            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid var(--blue);">
-                <strong>Instrucciones:</strong> El examen consta de 50 preguntas. Tienes 20 minutos.
-            </div>
+            <div class="welcome-box">
+                <img src="La_Aurora.png" alt="Logo">
+                <h1>Evaluación Técnica</h1>
+                <p>Departamento de Electrónica</p>
+                
+                <div class="instructions-block">
+                    <strong>Instrucciones:</strong> 50 preguntas disponibles. Tienes 20 minutos para completar el examen.
+                </div>
 
-            <div style="display: flex; gap: 10px;">
-                <input type="text" id="inputName" class="form-input" placeholder="Nombre(s)">
-                <input type="text" id="inputLastName" class="form-input" placeholder="Apellido(s)">
+                <div class="name-fields">
+                    <input type="text" id="inputName" class="form-input" placeholder="Nombre(s)">
+                    <input type="text" id="inputLastName" class="form-input" placeholder="Apellido(s)">
+                </div>
+                <input type="text" id="inputId" class="form-input" placeholder="ID de Empleado / Cédula">
+                
+                <button class="btn btn-primary" style="width:100%; margin-top: 10px;" onclick="startExam()">COMENZAR EXAMEN</button>
             </div>
-            <input type="text" id="inputId" class="form-input" placeholder="ID de Empleado / Cédula">
-            
-            <button class="btn btn-primary" style="width:100%" onclick="startExam()">COMENZAR EXAMEN</button>
         </div>
 
         <div id="view-exam" class="view-padding hidden">
@@ -187,7 +218,7 @@
 
             <div id="questionArea" class="question-box"></div>
 
-            <div style="display: flex; gap: 15px; margin-top: 30px;">
+            <div style="display: flex; gap: 15px; margin-top: 25px;">
                 <button class="btn btn-outline" id="btnPrev" onclick="prevQuestion()" style="flex:1">Anterior</button>
                 <button class="btn btn-primary" id="btnNext" onclick="nextQuestion()" style="flex:2">Siguiente</button>
             </div>
@@ -195,21 +226,20 @@
 
         <div id="view-results" class="view-padding hidden" style="text-align:center">
             <h2 id="resultUser" style="margin-bottom:10px"></h2>
-            <div style="font-size: 80px; font-weight: 900; color: var(--blue); margin: 20px 0;" id="finalScore">0%</div>
-            <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 30px;">
-                <div style="background:#f1f5f9; padding:20px; border-radius:12px">Correctas: <br><strong id="statCorrect" style="color:var(--success); font-size:20px"></strong></div>
-                <div style="background:#f1f5f9; padding:20px; border-radius:12px">Incorrectas: <br><strong id="statWrong" style="color:var(--danger); font-size:20px"></strong></div>
+            <div style="font-size: 70px; font-weight: 900; color: var(--blue); margin: 15px 0;" id="finalScore">0%</div>
+            <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 25px;">
+                <div style="background:#f1f5f9; padding:15px; border-radius:12px; flex:1">Correctas: <br><strong id="statCorrect" style="color:var(--success); font-size:18px"></strong></div>
+                <div style="background:#f1f5f9; padding:15px; border-radius:12px; flex:1">Incorrectas: <br><strong id="statWrong" style="color:var(--danger); font-size:18px"></strong></div>
             </div>
             <button class="btn btn-primary" onclick="exportToExcel()" style="width:100%">📥 DESCARGAR REPORTE EXCEL</button>
-            <button class="btn btn-outline" style="width:100%; margin-top:15px" onclick="location.reload()">Nuevo Intento</button>
+            <button class="btn btn-outline" style="width:100%; margin-top:12px" onclick="location.reload()">Nuevo Intento</button>
         </div>
     </div>
 </div>
 
 <script>
+// El script permanece funcionalmente igual para no romper la lógica del examen
 const CATALOG_IMAGES = ["La_Aurora1.png", "La_Aurora2.png", "La_Aurora3.png", "La_Aurora4.png", "La_Aurora5.png", "La_Aurora6.png"];
-
-// Banco de preguntas
 const QUESTIONS_BASE = [
   {q:'¿Cuál es la función principal del contactor K1?', a:['Arrancar y cortar el motor','Reducir voltaje','Medir corriente','Proteger el PLC'], c:0},
   {q:'¿Qué protección brinda el breaker principal?', a:['Protección contra sobrecorriente','Control de velocidad','Cambio de fases','Arranque suave'], c:0},
@@ -293,13 +323,7 @@ function startExam() {
     const n = document.getElementById('inputName').value.trim();
     const l = document.getElementById('inputLastName').value.trim();
     if(!n || !l) return alert("Por favor escribe nombre y apellido.");
-    
-    studentData = { 
-        name: n, 
-        lastName: l, 
-        id: document.getElementById('inputId').value 
-    };
-    
+    studentData = { name: n, lastName: l, id: document.getElementById('inputId').value };
     document.getElementById('view-start').classList.add('hidden');
     document.getElementById('view-exam').classList.remove('hidden');
     renderQuestion();
@@ -318,14 +342,10 @@ function renderQuestion() {
     const progress = ((currentIndex + 1) / 50) * 100;
     document.getElementById('progressBar').style.width = `${progress}%`;
     document.getElementById('progressText').textContent = `Pregunta ${currentIndex+1}/50`;
-    
     let h = `<div class="question-text">${q.q}</div>`;
     q.options.forEach((o, i) => {
         h += `<label class="option-label ${userAnswers[currentIndex] === i ? 'selected' : ''}">
-                <input type="radio" name="opt" 
-                    onclick="selectOption(${i})" 
-                    ${userAnswers[currentIndex] === i ? 'checked' : ''}> 
-                ${o}
+                <input type="radio" name="opt" onclick="selectOption(${i})" ${userAnswers[currentIndex] === i ? 'checked' : ''}> ${o}
               </label>`;
     });
     document.getElementById('questionArea').innerHTML = h;
@@ -351,31 +371,19 @@ function finishExam() {
     let correct = 0;
     questions.forEach((q,i) => { if(userAnswers[i]===q.correct) correct++; });
     const score = Math.round((correct/50)*100);
-    
     document.getElementById('view-exam').classList.add('hidden');
     document.getElementById('view-results').classList.remove('hidden');
     document.getElementById('resultUser').textContent = `${studentData.name} ${studentData.lastName}`;
     document.getElementById('finalScore').textContent = score + "%";
     document.getElementById('statCorrect').textContent = correct;
     document.getElementById('statWrong').textContent = 50 - correct;
-    
     let history = JSON.parse(localStorage.getItem('exam_data_la_aurora') || "[]");
-    history.unshift({
-        Nombre: studentData.name,
-        Apellido: studentData.lastName,
-        Identificacion: studentData.id,
-        Puntaje: score + "%",
-        Correctas: correct,
-        Incorrectas: 50 - correct,
-        Fecha: new Date().toLocaleString()
-    });
+    history.unshift({ Nombre: studentData.name, Apellido: studentData.lastName, Identificacion: studentData.id, Puntaje: score + "%", Correctas: correct, Incorrectas: 50 - correct, Fecha: new Date().toLocaleString() });
     localStorage.setItem('exam_data_la_aurora', JSON.stringify(history));
 }
 
 function exportToExcel() {
     const data = JSON.parse(localStorage.getItem('exam_data_la_aurora') || "[]");
-    if(data.length === 0) return alert("No hay datos para exportar.");
-    
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Resultados_Examen");
