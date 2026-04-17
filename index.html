@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Examen — Automatización Electrónica La Aurora</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        :root { 
+            --blue: #1e6fff; 
+            --bg: #0f172a; 
+            --card: rgba(255, 255, 255, 0.92);
+            --text: #1e293b; 
+            --border: #e2e8f0; 
+            --success: #22c55e;
+            --danger: #ef4444;
+        }
+      
+        body { 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background-color: var(--bg);
+            background-image: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.5)), url('La-Aurora-107-Nicaragua-Robusto-2.png'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 650px;
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .sidebar-catalog {
+            width: 40%;
+            background: #000;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .sidebar-catalog img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            transition: opacity 1.5s ease-in-out;
+            opacity: 0;
+        }
+        .sidebar-catalog img.active { opacity: 0.7; }
+
+        .sidebar-info {
+            position: relative;
+            z-index: 2;
+            margin-top: auto;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: white;
+        }
+
+        .container { width: 60%; overflow-y: auto; max-height: 90vh; display: flex; flex-direction: column; }
+        .hidden { display: none !important; }
+        .view-padding { padding: 50px; }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: var(--blue);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .question-box {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        .question-text { 
+            font-size: 22px; 
+            font-weight: 700; 
+            margin-bottom: 25px; 
+            line-height: 1.4; 
+            color: #0f172a; 
+        }
+        
+        .option-label { 
+            display: flex; 
+            align-items: center; 
+            padding: 16px; 
+            border: 2px solid var(--border); 
+            border-radius: 12px; 
+            margin-bottom: 12px; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            background: #fff;
+        }
+        .option-label:hover { border-color: var(--blue); background: #f8faff; }
+        .option-label.selected { border-color: var(--blue); background: #eff6ff; }
+        .option-label input { margin-right: 15px; transform: scale(1.4); }
+
+        .btn { padding: 16px 28px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 16px; }
+        .btn-primary { background: var(--blue); color: white; box-shadow: 0 4px 14px rgba(30, 111, 255, 0.4); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 111, 255, 0.5); }
+        .btn-outline { background: #f1f5f9; color: #64748b; }
+
+        /* Estilo para los inputs de registro */
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        @media (max-width: 900px) { 
+            .main-wrapper { flex-direction: column; }
+            .sidebar-catalog { width: 100%; height: 200px; }
+            .container { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="sidebar-catalog" id="slideshow">
+        <div class="sidebar-info">
+            <h3 style="margin:0">La Aurora</h3>
+            <p style="margin:5px 0 0; font-size:14px; opacity:0.8">Automatización e Innovación</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="view-start" class="view-padding">
+            <div style="text-align: center; margin-bottom: 35px;">
+                <img src="La_Aurora.png" alt="Logo" style="height: 80px; margin-bottom: 20px;">
+                <h1 style="margin:0; color:#0f172a">Evaluación Técnica</h1>
+                <p style="color:#64748b">Departamento de Electrónica</p>
+            </div>
+            
+            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid var(--blue);">
+                <strong>Instrucciones:</strong> El examen consta de 50 preguntas. Tienes 20 minutos.
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="inputName" class="form-input" placeholder="Nombre(s)">
+                <input type="text" id="inputLastName" class="form-input" placeholder="Apellido(s)">
+            </div>
+            <input type="text" id="inputId" class="form-input" placeholder="ID de Empleado / Cédula">
+            
+            <button class="btn btn-primary" style="width:100%" onclick="startExam()">COMENZAR EXAMEN</button>
+        </div>
+
+        <div id="view-exam" class="view-padding hidden">
+            <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+            
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: 700;">
+                <span id="progressText" style="color: var(--blue);">Pregunta 1/50</span>
+                <span id="timerDisplay" style="color: var(--danger);">20:00</span>
+            </div>
+
+            <div id="questionArea" class="question-box"></div>
+
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button class="btn btn-outline" id="btnPrev" onclick="prevQuestion()" style="flex:1">Anterior</button>
+                <button class="btn btn-primary" id="btnNext" onclick="nextQuestion()" style="flex:2">Siguiente</button>
+            </div>
+        </div>
+
+        <div id="view-results" class="view-padding hidden" style="text-align:center">
+            <h2 id="resultUser" style="margin-bottom:10px"></h2>
+            <div style="font-size: 80px; font-weight: 900; color: var(--blue); margin: 20px 0;" id="finalScore">0%</div>
+            <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 30px;">
+                <div style="background:#f1f5f9; padding:20px; border-radius:12px">Correctas: <br><strong id="statCorrect" style="color:var(--success); font-size:20px"></strong></div>
+                <div style="background:#f1f5f9; padding:20px; border-radius:12px">Incorrectas: <br><strong id="statWrong" style="color:var(--danger); font-size:20px"></strong></div>
+            </div>
+            <button class="btn btn-primary" onclick="exportToExcel()" style="width:100%">📥 DESCARGAR REPORTE EXCEL</button>
+            <button class="btn btn-outline" style="width:100%; margin-top:15px" onclick="location.reload()">Nuevo Intento</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const CATALOG_IMAGES = ["La_Aurora1.png", "La_Aurora2.png", "La_Aurora3.png", "La_Aurora4.png", "La_Aurora5.png", "La_Aurora6.png"];
+
+// Banco de preguntas
+const QUESTIONS_BASE = [
+  {q:'¿Cuál es la función principal del contactor K1?', a:['Arrancar y cortar el motor','Reducir voltaje','Medir corriente','Proteger el PLC'], c:0},
+  {q:'¿Qué protección brinda el breaker principal?', a:['Protección contra sobrecorriente','Control de velocidad','Cambio de fases','Arranque suave'], c:0},
+  {q:'¿Para qué sirve un relé térmico?', a:['Detectar sobrecarga del motor','Medir temperatura ambiente','Regular voltaje','Proteger contra cortocircuito'], c:0},
+  {q:'¿Qué indica el símbolo del transformador?', a:['Cambio de voltaje','Señal analógica','Final de carrera','Resistencia'], c:0},
+  {q:'¿Qué representa una bobina A1-A2?', a:['Bobina de un contactor','Sensor inductivo','Fusible rápido','Carga resistiva'], c:0},
+  {q:'¿Qué función tiene la regleta de bornes?', a:['Organizar y conectar cables','Reducir ruido eléctrico','Convertir señales','Almacenar energía'], c:0},
+  {q:'¿Qué componente convierte 220V a 24V?', a:['Transformador','PLC','Relevador','Sensor IR'], c:0},
+  {q:'¿Qué es un interruptor NA?', a:['Normalmente abierto','Normalmente conectado','Activo negativo','Apagado automático'], c:0},
+  {q:'¿Qué es un interruptor NC?', a:['Normalmente cerrado','Negativo común','No calibrado','Nodo de control'], c:0},
+  {q:'¿Para qué sirve el PLC?', a:['Controlar la lógica de la máquina','Reducir potencia','Convertir CA a CC','Dar señal analógica'], c:0},
+  {q:'¿Qué inicia el arranque del motor?', a:['Botón de marcha','Botón de paro','Sensor capacitivo','Fusible térmico'], c:0},
+  {q:'¿Para qué sirve el relé térmico en un motor?', a:['Evitar sobrecarga','Cambiar fases','Elevar voltaje','Aumentar torque'], c:0},
+  {q:'¿Qué pasa si K1 se queda pegado?', a:['El motor no se apaga','El motor invierte giro','El motor pierde torque','El PLC reinicia'], c:0},
+  {q:'¿Por qué se coloca fusible en cada fase?', a:['Proteger circuito','Aumentar corriente','Crear redundancia','Mejorar voltaje'], c:0},
+  {q:'¿Qué indica sobrecarga del motor?', a:['Acción del relé térmico','Luz verde activa','Baja tensión','RPM bajas'], c:0},
+  {q:'¿Qué evita dos motores simultáneos?', a:['Enclavamiento','Presostato','Breaker doble','Variador'], c:0},
+  {q:'¿Cómo se identifica el sentido de giro?', a:['Cambio de fases','Intensidad de corriente','Voltaje neutro','Señal analógica'], c:0},
+  {q:'¿Qué controla la velocidad si aparece?', a:['Variador de frecuencia','Timer','Sensor óptico','PLC'], c:0},
+  {q:'¿Qué sensor detecta presencia?', a:['Sensor inductivo/fotoeléctrico','Presostato','Termistor','Relé térmico'], c:0},
+  {q:'¿Qué indica el sensor inductivo?', a:['Metal presente','Luz baja','Aire comprimido','Voltaje DC'], c:0},
+  {q:'¿Qué es final de carrera NA?', a:['Sin contacto al reposo','Cerrado al reposo','Detecta voltaje','Control de presión'], c:0},
+  {q:'¿Qué es final de carrera NC?', a:['Contacto cerrado al reposo','Detecta distancia','Mide resistencia','Detecta temperatura'], c:0},
+  {q:'¿Qué ocurre si un sensor de seguridad abre?', a:['La máquina se detiene','Arranca la alarma','Aumenta la velocidad','El PLC reinicia'], c:0},
+  {q:'¿Cómo se identifica una fotocélula?', a:['Símbolo con emisor/receptor','Símbolo de bobina','Símbolo de resistencia','Símbolo de fusible'], c:0},
+  {q:'¿Para qué sirve el paro de emergencia?', a:['Detener la máquina','Encender luces','Bajar voltaje','Resetear PLC'], c:0},
+  {q:'¿Por qué el paro es NC?', a:['Falla segura','Evitar bajas RPM','Mejorar torque','Aumentar potencia'], c:0},
+  {q:'¿Qué contacto tiene botón de marcha?', a:['NA','NC','DPDT','PWM'], c:0},
+  {q:'¿Qué evita arranque después de un apagón?', a:['Auto-retención de control','Reset manual','Sensores inductivos','Fotocélula'], c:0},
+  {q:'¿Cómo se identifica un enclavamiento?', a:['Contacto auxiliar NC','Luz roja','Voltímetro','Relevador'], c:0},
+  {q:'¿Para qué sirve relé de seguridad?', a:['Monitorear emergencias','Regular voltaje','Controlar torque','Medir sensores'], c:0},
+  {q:'¿Por qué el Rele de seguridad tienen dos canales?', a:['Redundancia','Para consumir menos energía','Para aumentar torque','Para medir RPM'], c:0},
+  {q:'¿Qué función tiene el piloto verde?', a:['Indicar máquina encendida','Indicar peligro','Indicar paro','Indicar fallo'], c:0},
+  {q:'¿Qué indica piloto rojo?', a:['Falla o parada','Motor encendido','Velocidad alta','PLC online'], c:0},
+  {q:'¿Qué indica luz amarilla?', a:['Advertencia','Motor encendido','Baja carga','Alta presión'], c:0},
+  {q:'¿Qué relé controla luces piloto?', a:['Relé de señalización','Relevador térmico','Variador','Selector'], c:0},
+  {q:'¿Cómo se identifica alarma sonora?', a:['Símbolo buzzer','Símbolo de bobina','Símbolo de fusible','Símbolo de sensor'], c:0},
+  {q:'¿Qué entrada recibe señal de marcha?', a:['Entrada digital PLC','Salida analógica','Sensor RTD','Relé térmico'], c:0},
+  {q:'¿Qué salida controla contactor?', a:['Salida digital PLC','Salida analógica','PWM','CANBus'], c:0},
+  {q:'¿Función tarjeta de entradas digitales?', a:['Leer sensores','Controlar motores','Medir voltaje','Generar PWM'], c:0},
+  {q:'¿Función tarjeta de salidas digitales?', a:['Accionar actuadores','Leer sensores','Convertir AC a DC','Activar buzzer interno'], c:0},
+  {q:'¿Cómo se identifica sensor 24V?', a:['Cable positivo +24V y GND','Tres fases','Señal analógica','Voltaje AC'], c:0},
+  {q:'¿Función fuente PLC?', a:['Alimentar PLC y sensores','Cambiar fase','Dar PWM','Medir potencia'], c:0},
+  {q:'¿Qué señal entrega sensor inductivo?', a:['24V ON/OFF','0–10V','4–20mA','PWM'], c:0},
+  {q:'¿Qué representa solenoide?', a:['Válvula controlada eléctricamente','Motor trifásico','Sensor NC','Transformador'], c:0},
+  {q:'¿Qué controla bobina Y1?', a:['Movimiento de cilindro','Velocidad del motor','Luz piloto','Presión'], c:0},
+  {q:'¿Qué indica presostato?', a:['Presion del sistema','Temperatura','Voltaje','Resistencia'], c:0},
+  {q:'¿Qué ocurre si presión baja?', a:['Presostato abre y para máquina','Enciende luz verde','Aumenta torque','Activa sensor'], c:0},
+  {q:'¿Qué muestra diagrama de potencia?', a:['Motores y cargas','Sensores','Lógica PLC','Variadores'], c:0},
+  {q:'¿Qué muestra diagrama de control?', a:['Lógica y señales','Físico del motor','Amperaje','Velocidad'], c:0},
+  {q:'¿Por qué es importante numeración?', a:['Facilitar mantenimiento','Aumentar velocidad','Reducir voltaje','Eliminar fallas'], c:0}
+];
+
+let questions = [], currentIndex = 0, userAnswers = [], studentData = {};
+let timerInterval, remainingSeconds = 20 * 60;
+
+function init() {
+    const container = document.getElementById('slideshow');
+    CATALOG_IMAGES.forEach((url, i) => {
+        const img = document.createElement('img'); img.src = url;
+        if(i===0) img.classList.add('active'); container.appendChild(img);
+    });
+    let slideIdx = 0;
+    setInterval(() => {
+        const imgs = container.getElementsByTagName('img');
+        if(imgs.length > 0) {
+            imgs[slideIdx % imgs.length].classList.remove('active');
+            slideIdx++;
+            imgs[slideIdx % imgs.length].classList.add('active');
+        }
+    }, 5000);
+
+    questions = QUESTIONS_BASE.map(item => {
+        let indices = [0,1,2,3].sort(() => Math.random() - 0.5);
+        return { q: item.q, options: indices.map(i => item.a[i]), correct: indices.indexOf(0) };
+    });
+    userAnswers = Array(questions.length).fill(null);
+}
+
+function startExam() {
+    const n = document.getElementById('inputName').value.trim();
+    const l = document.getElementById('inputLastName').value.trim();
+    if(!n || !l) return alert("Por favor escribe nombre y apellido.");
+    
+    studentData = { 
+        name: n, 
+        lastName: l, 
+        id: document.getElementById('inputId').value 
+    };
+    
+    document.getElementById('view-start').classList.add('hidden');
+    document.getElementById('view-exam').classList.remove('hidden');
+    renderQuestion();
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    remainingSeconds--;
+    let m = Math.floor(remainingSeconds/60), s = remainingSeconds%60;
+    document.getElementById('timerDisplay').textContent = `${m}:${s<10?'0':''}${s}`;
+    if(remainingSeconds <= 0) finishExam();
+}
+
+function renderQuestion() {
+    const q = questions[currentIndex];
+    const progress = ((currentIndex + 1) / 50) * 100;
+    document.getElementById('progressBar').style.width = `${progress}%`;
+    document.getElementById('progressText').textContent = `Pregunta ${currentIndex+1}/50`;
+    
+    let h = `<div class="question-text">${q.q}</div>`;
+    q.options.forEach((o, i) => {
+        h += `<label class="option-label ${userAnswers[currentIndex] === i ? 'selected' : ''}">
+                <input type="radio" name="opt" 
+                    onclick="selectOption(${i})" 
+                    ${userAnswers[currentIndex] === i ? 'checked' : ''}> 
+                ${o}
+              </label>`;
+    });
+    document.getElementById('questionArea').innerHTML = h;
+    document.getElementById('btnPrev').disabled = currentIndex === 0;
+    document.getElementById('btnNext').textContent = currentIndex === 49 ? "FINALIZAR" : "Siguiente";
+}
+
+function selectOption(i) {
+    userAnswers[currentIndex] = i;
+    renderQuestion();
+}
+
+function nextQuestion() {
+    if(userAnswers[currentIndex] === null) return alert("Por favor selecciona una respuesta.");
+    if(currentIndex < 49) { currentIndex++; renderQuestion(); }
+    else { if(confirm("¿Deseas finalizar el examen?")) finishExam(); }
+}
+
+function prevQuestion() { if(currentIndex > 0) { currentIndex--; renderQuestion(); } }
+
+function finishExam() {
+    clearInterval(timerInterval);
+    let correct = 0;
+    questions.forEach((q,i) => { if(userAnswers[i]===q.correct) correct++; });
+    const score = Math.round((correct/50)*100);
+    
+    document.getElementById('view-exam').classList.add('hidden');
+    document.getElementById('view-results').classList.remove('hidden');
+    document.getElementById('resultUser').textContent = `${studentData.name} ${studentData.lastName}`;
+    document.getElementById('finalScore').textContent = score + "%";
+    document.getElementById('statCorrect').textContent = correct;
+    document.getElementById('statWrong').textContent = 50 - correct;
+    
+    let history = JSON.parse(localStorage.getItem('exam_data_la_aurora') || "[]");
+    history.unshift({
+        Nombre: studentData.name,
+        Apellido: studentData.lastName,
+        Identificacion: studentData.id,
+        Puntaje: score + "%",
+        Correctas: correct,
+        Incorrectas: 50 - correct,
+        Fecha: new Date().toLocaleString()
+    });
+    localStorage.setItem('exam_data_la_aurora', JSON.stringify(history));
+}
+
+function exportToExcel() {
+    const data = JSON.parse(localStorage.getItem('exam_data_la_aurora') || "[]");
+    if(data.length === 0) return alert("No hay datos para exportar.");
+    
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Resultados_Examen");
+    XLSX.writeFile(wb, "Reporte_Examen_La_Aurora.xlsx");
+}
+
+init();
+</script>
+</body>
+</html>
