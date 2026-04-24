@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Reporte Global de Técnicos Evaluados</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        :root { --teal: #14b8a6; --dark: #1e293b; --bg: #f8fafc; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 40px; display: flex; justify-content: center; }
+        .card { background: white; width: 100%; max-width: 900px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); padding: 30px; border: 1px solid #e2e8f0; }
+        .header { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid var(--teal); padding-bottom: 15px; }
+        .header h2 { margin: 0; color: var(--dark); font-size: 24px; }
+        .btn-excel { background: var(--teal); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        table { width: 100%; border-collapse: collapse; border-radius: 8px; overflow: hidden; }
+        th { background: var(--dark); color: white; padding: 15px; text-align: left; font-size: 14px; text-transform: uppercase; }
+        td { padding: 15px; border-bottom: 1px solid #e2e8f0; color: #334155; font-size: 15px; }
+        tr:last-child td { border-bottom: none; }
+        .status-badge { background: #f1f5f9; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--teal); }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header">
+        <span>📊</span>
+        <h2>Reporte Global de Técnicos Evaluados</h2>
+    </div>
+
+    <button class="btn-excel" onclick="exportExcel()">📊 Descargar Todo en Excel</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Nombre del Técnico</th>
+                <th>Correctas</th>
+                <th>Incorrectas</th>
+                <th>Estatus</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <tr><td colspan="5" style="text-align:center">Cargando datos desde GitHub...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+const GITHUB_CFG = {
+    token: "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",
+    repo: "humberto1988hudl-rgb/Examen-actualizado",
+    path: "resultados_instrumentacion.json"
+};
+
+let rawData = [];
+
+async function loadData() {
+    const tableBody = document.getElementById('tableBody');
+    // Agregamos un timestamp para evitar que el navegador use una copia vieja (cache)
+    const url = `https://api.github.com/repos/${GITHUB_CFG.repo}/contents/${GITHUB_CFG.path}?cb=${Date.now()}`;
+
+    try {
+        const res = await fetch(url, {
+            headers: { "Authorization": `token ${GITHUB_CFG.token}` }
+        });
+        
+        if (!res.ok) throw new Error("Error de conexión");
+
+        const json = await res.json();
+        rawData = JSON.parse(atob(json.content));
+        
+        tableBody.innerHTML = "";
+
+        if (rawData.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center">No hay registros aún</td></tr>';
+            return;
+        }
+
+        // Ordenar: los más recientes arriba
+        rawData.reverse().forEach(item => {
+            // Buscamos los datos sin importar si la letra es mayúscula o minúscula
+            const fecha = item.fecha || item.Fecha || "---";
+            const nombre = (item.nombre || item.Nombre || "") + " " + (item.apellido || item.Apellido || "");
+            const puntajeStr = item.puntaje || item.Puntaje || "0%";
+            const correctas = item.correctas || item.Correctas || 0;
+            const incorrectas = 50 - correctas;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${fecha}</td>
+                <td><strong>${nombre}</strong></td>
+                <td style="color:green; font-weight:bold">${correctas}</td>
+                <td style="color:red">${incorrectas}</td>
+                <td><span class="status-badge">${puntajeStr}</span></td>
+            `;
+            tableBody.appendChild(tr);
+        });
+
+    } catch (e) {
+        tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red">Error: ${e.message}</td></tr>`;
+    }
+}
+
+function exportExcel() {
+    if(rawData.length === 0) return alert("No hay datos");
+    const ws = XLSX.utils.json_to_sheet(rawData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Resultados");
+    XLSX.writeFile(wb, "Reporte_General_La_Aurora.xlsx");
+}
+
+loadData();
+</script>
+
+</body>
+</html>
