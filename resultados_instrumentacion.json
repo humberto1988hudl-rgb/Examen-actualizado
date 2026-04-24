@@ -1,10 +1,18 @@
 [
   {
     "nombre": "Humberto",
-    "apellido": "Ureña de León",
+    "apellido": "UreÃ±a de LeÃ³n",
     "id": "21705",
     "puntaje": "4%",
     "correctas": 2,
     "fecha": "23/4/2026, 10:45:40 p.m."
+  },
+  {
+    "nombre": "Leomar",
+    "apellido": "Arison Sanchez",
+    "id": "23611",
+    "puntaje": "76%",
+    "correctas": 38,
+    "fecha": "24/4/2026, 12:53:54 a.m."
   }
 ]
