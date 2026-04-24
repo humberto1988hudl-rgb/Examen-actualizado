@@ -1,7 +1,7 @@
 [
   {
     "nombre": "Humberto",
-    "apellido": "Ureña de León",
+    "apellido": "UreÃ±a de LeÃ³n",
     "id": "21705",
     "puntaje": "4%",
     "correctas": 2,
@@ -17,10 +17,18 @@
   },
   {
     "Nombre": "Lisangel Isabel",
-    "Apellido": "Gonz�lez",
+    "Apellido": "González",
     "Identificacion": "25717",
     "Puntaje": "24%",
     "Correctas": 12,
     "Fecha": "24/4/2026, 3:55:57 p.m."
+  },
+  {
+    "Nombre": "Humberto",
+    "Apellido": "Ure�a de leon",
+    "Identificacion": "21705",
+    "Puntaje": "20%",
+    "Correctas": 10,
+    "Fecha": "24/4/2026, 4:19:48 p.m."
   }
 ]
