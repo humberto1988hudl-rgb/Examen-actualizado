@@ -1,10 +1,18 @@
 [
   {
     "Nombre": "Leomar",
-    "Apellido": "Sánchez",
+    "Apellido": "SÃ¡nchez",
     "Identificacion": "23611",
     "Puntaje": "26%",
     "Correctas": 13,
     "Fecha": "24/4/2026, 9:05:49 p.m."
+  },
+  {
+    "Nombre": "Humberto",
+    "Apellido": "Ureña de leon",
+    "Identificacion": "21705",
+    "Puntaje": 20,
+    "Correctas": 10,
+    "Fecha": "24/4/2026, 9:33:45 p.m."
   }
 ]
