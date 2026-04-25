@@ -247,58 +247,120 @@ const CATALOG_IMAGES = ["La_Aurora1.png", "La_Aurora2.png", "La_Aurora3.png", "L
 
 // Base de preguntas (Índice 'c' siempre apunta a la respuesta correcta inicial)
 const QUESTIONS_BASE = [
-  {q:'¿Cuál es la función principal del contactor K1?', a:['Arrancar y cortar el motor','Reducir voltaje','Medir corriente','Proteger el PLC'], c:0},
-  {q:'¿Qué protección brinda el breaker principal?', a:['Protección contra sobrecorriente','Control de velocidad','Cambio de fases','Arranque suave'], c:0},
-  {q:'¿Para qué sirve un relé térmico?', a:['Detectar sobrecarga del motor','Medir temperatura ambiente','Regular voltaje','Proteger contra cortocircuito'], c:0},
-  {q:'¿Qué indica el símbolo del transformador?', a:['Cambio de voltaje','Señal analógica','Final de carrera','Resistencia'], c:0},
-  {q:'¿Qué representa una bobina A1-A2?', a:['Bobina de un contactor','Sensor inductivo','Fusible rápido','Carga resistiva'], c:0},
-  {q:'¿Qué función tiene la regleta de bornes?', a:['Organizar y conectar cables','Reducir ruido eléctrico','Convertir señales','Almacenar energía'], c:0},
-  {q:'¿Qué componente convierte 220V a 24V?', a:['Transformador','PLC','Relevador','Sensor IR'], c:0},
-  {q:'¿Qué es un interruptor NA?', a:['Normalmente abierto','Normalmente conectado','Activo negativo','Apagado automático'], c:0},
-  {q:'¿Qué es un interruptor NC?', a:['Normalmente cerrado','Negativo común','No calibrado','Nodo de control'], c:0},
-  {q:'¿Para qué sirve el PLC?', a:['Controlar la lógica de la máquina','Reducir potencia','Convertir CA a CC','Dar señal analógica'], c:0},
-  {q:'¿Qué inicia el arranque del motor?', a:['Botón de marcha','Botón de paro','Sensor capacitivo','Fusible térmico'], c:0},
-  {q:'¿Para qué sirve el relé térmico en un motor?', a:['Evitar sobrecarga','Cambiar fases','Elevar voltaje','Aumentar torque'], c:0},
-  {q:'¿Qué pasa si K1 se queda pegado?', a:['El motor no se apaga','El motor invierte giro','El motor pierde torque','El PLC reinicia'], c:0},
-  {q:'¿Por qué se coloca fusible en cada fase?', a:['Proteger circuito','Aumentar corriente','Crear redundancia','Mejorar voltaje'], c:0},
-  {q:'¿Qué indica sobrecarga del motor?', a:['Acción del relé térmico','Luz verde activa','Baja tensión','RPM bajas'], c:0},
-  {q:'¿Qué evita dos motores simultáneos?', a:['Enclavamiento','Presostato','Breaker doble','Variador'], c:0},
-  {q:'¿Cómo se identifica el sentido de giro?', a:['Cambio de fases','Intensidad de corriente','Voltaje neutro','Señal analógica'], c:0},
-  {q:'¿Qué controla la velocidad si aparece?', a:['Variador de frecuencia','Timer','Sensor óptico','PLC'], c:0},
-  {q:'¿Qué sensor detecta presencia?', a:['Sensor inductivo/fotoeléctrico','Presostato','Termistor','Relé térmico'], c:0},
-  {q:'¿Qué indica el sensor inductivo?', a:['Metal presente','Luz baja','Aire comprimido','Voltaje DC'], c:0},
-  {q:'¿Qué es final de carrera NA?', a:['Sin contacto al reposo','Cerrado al reposo','Detecta voltaje','Control de presión'], c:0},
-  {q:'¿Qué es final de carrera NC?', a:['Contacto cerrado al reposo','Detecta distancia','Mide resistencia','Detecta temperatura'], c:0},
-  {q:'¿Qué ocurre si un sensor de seguridad abre?', a:['La máquina se detiene','Arranca la alarma','Aumenta la velocidad','El PLC reinicia'], c:0},
-  {q:'¿Cómo se identifica una fotocélula?', a:['Símbolo con emisor/receptor','Símbolo de bobina','Símbolo de resistencia','Símbolo de fusible'], c:0},
-  {q:'¿Para qué sirve el paro de emergencia?', a:['Detener la máquina','Encender luces','Bajar voltaje','Resetear PLC'], c:0},
-  {q:'¿Por qué el paro es NC?', a:['Falla segura','Evitar bajas RPM','Mejorar torque','Aumentar potencia'], c:0},
-  {q:'¿Qué contacto tiene botón de marcha?', a:['NA','NC','DPDT','PWM'], c:0},
-  {q:'¿Qué evita arranque después de un apagón?', a:['Auto-retención de control','Reset manual','Sensores inductivos','Fotocélula'], c:0},
-  {q:'¿Cómo se identifica un enclavamiento?', a:['Contacto auxiliar NC','Luz roja','Voltímetro','Relevador'], c:0},
-  {q:'¿Para qué sirve relé de seguridad?', a:['Monitorear emergencias','Regular voltaje','Controlar torque','Medir sensores'], c:0},
-  {q:'¿Por qué el Rele de seguridad tienen dos canales?', a:['Redundancia','Para consumir menos energía','Para aumentar torque','Para medir RPM'], c:0},
-  {q:'¿Qué función tiene el piloto verde?', a:['Indicar máquina encendida','Indicar peligro','Indicar paro','Indicar fallo'], c:0},
-  {q:'¿Qué indica piloto rojo?', a:['Falla o parada','Motor encendido','Velocidad alta','PLC online'], c:0},
-  {q:'¿Qué indica luz amarilla?', a:['Advertencia','Motor encendido','Baja carga','Alta presión'], c:0},
-  {q:'¿Qué relé controla luces piloto?', a:['Relé de señalización','Relevador térmico','Variador','Selector'], c:0},
-  {q:'¿Cómo se identifica alarma sonora?', a:['Símbolo buzzer','Símbolo de bobina','Símbolo de fusible','Símbolo de sensor'], c:0},
-  {q:'¿Qué entrada recibe señal de marcha?', a:['Entrada digital PLC','Salida analógica','Sensor RTD','Relé térmico'], c:0},
-  {q:'¿Qué salida controla contactor?', a:['Salida digital PLC','Salida analógica','PWM','CANBus'], c:0},
-  {q:'¿Función tarjeta de entradas digitales?', a:['Leer sensores','Controlar motores','Medir voltaje','Generar PWM'], c:0},
-  {q:'¿Función tarjeta de salidas digitales?', a:['Accionar actuadores','Leer sensores','Convertir AC a DC','Activar buzzer interno'], c:0},
-  {q:'¿Cómo se identifica sensor 24V?', a:['Cable positivo +24V y GND','Tres fases','Señal analógica','Voltaje AC'], c:0},
-  {q:'¿Función fuente PLC?', a:['Alimentar PLC y sensores','Cambiar fase','Dar PWM','Medir potencia'], c:0},
-  {q:'¿Qué señal entrega sensor inductivo?', a:['24V ON/OFF','0–10V','4–20mA','PWM'], c:0},
-  {q:'¿Qué representa solenoide?', a:['Válvula controlada eléctricamente','Motor trifásico','Sensor NC','Transformador'], c:0},
-  {q:'¿Qué controla bobina Y1?', a:['Movimiento de cilindro','Velocidad del motor','Luz piloto','Presión'], c:0},
-  {q:'¿Qué indica presostato?', a:['Presion del sistema','Temperatura','Voltaje','Resistencia'], c:0},
-  {q:'¿Qué ocurre si presión baja?', a:['Presostato abre y para máquina','Enciende luz verde','Aumenta torque','Activa sensor'], c:0},
-  {q:'¿Qué muestra diagrama de potencia?', a:['Motores y cargas','Sensores','Lógica PLC','Variadores'], c:0},
-  {q:'¿Qué muestra diagrama de control?', a:['Lógica y señales','Físico del motor','Amperaje','Velocidad'], c:0},
-  {q:'¿Por qué es importante numeración?', a:['Facilitar mantenimiento','Aumentar velocidad','Reducir voltaje','Eliminar fallas'], c:0}
+
+ {q:'P1: ¿Cuál es el voltaje de la acometida principal trifásica?', a:['220V', '480V', '120V', '24V'], c:1},
+
+  {q:'P2: ¿Qué modelo de PLC Omron se utiliza en el sistema?', a:['CP1L', 'CJ2M', 'NX1P', 'CPM1A'], c:0},
+
+  {q:'P3: ¿Cuál es la Potencia y voltaje de la resistencia de "Sellado Central":', a:['250W/120V', '500W/220V', '100W/120V', '100W/24V'], c:2},
+
+  {q:'P4: ¿Qué componente protege las líneas de entrada de L1, L2 y L3?', a:['Relé térmico', 'Fusibles/Breaker principal', 'Contactor K1', 'Transformador T1'], c:1},
+
+  {q:'P5: ¿Cuál es el Voltaje de salida de los transformadores T1, T2 y T3:', a:['24V', '220V', '120V', '480V'], c:2},
+
+  {q:'P6: Marca del variador de frecuencia (VFD) en el diseño:', a:['Siemens', 'Schneider', 'Omron', 'Allen-Bradley'], c:2},
+
+  {q:'P10: ¿Qué canal del PLC corresponde a las salidas (Outputs)?', a:['CH0', 'CH100', 'CH1', 'CH50'], c:1},
+
+   {q:'P60: En un motor trifásico, ¿qué determina la velocidad de rotación?', a:['El voltaje aplicado', 'La frecuencia y el número de polos', 'El tamaño del eje', 'La conexión Estrella o Delta'], c:1},
+
+  {q:'P56: En un motor de 12 puntas, ¿qué conexión representa el mayor voltaje?', a:['Estrella Serie', 'Estrella Paralelo', 'Delta Paralelo', 'Doble Delta'], c:0},
+
+  {q:'P9: ¿Qué canal del PLC corresponde a las entradas (Inputs)?', a:['CH0', 'CH100', 'CH1', 'CH200'], c:0},
+
+  {q:'P11: Voltaje de operación de los controles de temperatura E5CC:', a:['480V', '24V DC', '120V AC', '220V AC'], c:2},
+
+  {q:'P12: ¿Cuántos bloques de borneras principales hay en el panel?', a:['1', '2', '3', '5'], c:2},
+
+  {q:'P13: Potencia de la resistencia " Punto del Centro":', a:['100W', '200W', '50W', '500W'], c:0},
+
+  {q:'P14: ¿Qué indica la sigla "COM" en el cableado del PLC?', a:['Comunicación', 'Común', 'Compresor', 'Control'], c:1},
+
+  {q:'P15: ¿Qué tipo de conector se usa para las resistencias?', a:['RJ45', 'USB', 'Harting', 'DB9'], c:2},
+
+  {q:'P16: ¿En qué parte del panel se encuentran ubicados los transformadores T1, T2, T3 y T4?', a:['En la puerta del panel', 'En el fondo del gabinete (Plato)', 'En el exterior del panel', 'Cerca del extractor'], c:1},
+
+  {q:'P17: ¿Qué dispositivo se utiliza para la protección térmica de los motores según la distribución interna?', a:['Relés térmicos / Guardamotores', 'Fusibles de vidrio', 'Borneras de tierra', 'Luz piloto roja'], c:0},
+
+  {q:'P18: ¿Cómo están organizados los bloques de borneras en la parte inferior del panel?', a:['En un solo bloque largo', 'Divididos en Primer, Segundo y Tercer bloque', 'No hay borneras en la parte inferior', 'Están mezclados con los breakers'], c:1},
+
+  {q:'P19: ¿Qué componente de control de potencia se encuentra junto al PLC en el riel DIN?', a:['Los transformadores', 'Los relés de interfaz (MY2)', 'El medidor de energía', 'La fuente de alimentación'], c:1},
+
+  {q:'P20: ¿Qué dispositivo de ventilación se observa en el plano para el enfriamiento del panel?', a:['Un aire acondicionado industrial', 'Un extractor de aire con rejilla', 'Un compresor de aire', 'No requiere ventilación'], c:1},
+
+  {q:'P21: ¿Qué significa la sigla "NO" en un botón de arranque?', a:['Normalmente Abierto', 'No Operativo', 'Nivel Óptimo', 'Nueva Orden'], c:0},
+
+  {q:'P22: ¿Qué tipo de canaleta se utiliza para organizar el cableado interno?', a:['Canaleta ranurada de PVC', 'Tubería EMT', 'Tubería Liquid-tight', 'Cableado al aire libre'], c:0},
+
+  {q:'P23: ¿Dónde se ubica físicamente el Variador de Frecuencia (VFD) dentro del panel?', a:['En la puerta junto a los botones', 'En el riel superior del plato interno', 'En la parte externa de la máquina', 'Debajo del PLC'], c:1},
+
+  {q:'P24: ¿Qué elemento del panel interno permite la conexión rápida con los periféricos externos?', a:['Los conectores tipo Harting', 'Soldadura directa', 'Cinta aislante', 'Empalmes rápidos'], c:0},
+
+  {q:'P25: ¿Qué componente protege el circuito de control de 120V AC después del transformador?', a:['Breaker de control o fusibles', 'El variador de frecuencia', 'El PLC directamente', 'Un sensor de proximidad'], c:0},
+
+  {q:'P26: ¿Cuál es la función de los relés Omron MY2 que están en el panel?', a:['Regular la velocidad del motor', 'Servir de interfaz entre el PLC y las cargas', 'Medir el voltaje de entrada', 'Controlar la temperatura'], c:1},
+
+  {q:'P27: Voltaje del transformador T4 según el plano:', a:['480V a 220V', '480V a 120V', '120V a 24V', '220V a 110V'], c:0},
+
+  {q:'P28: ¿Qué dispositivo cuenta los pulsos o tiempo en el panel?', a:['PLC', 'Variador', 'Contador H7EC', 'Sensor'], c:2},
+
+  {q:'P29: Voltaje de la lógica de control del variador 3G3MX2:', a:['120V AC', '24V DC', '480V AC', '220V AC'], c:1},
+
+  {q:'P30: ¿Qué resistencia tiene 100W/120V en el "Sellador Atrás"?', a:['Sellado', 'Pegador punto', 'Resistencia folder', 'Abanico'], c:1},
+
+  {q:'P31: ¿Cuántas fases tiene la alimentación principal?', a:['1 fase', '2 fases', '3 fases', 'DC'], c:2},
+
+  {q:'P32: ¿En qué página se detalla la "Potencia Control"?', a:['Página 1', 'Página 7', 'Página 3', 'Página 12'], c:1},
+
+  {q:'P33: El modelo CP1L es fabricado por:', a:['Omron', 'Siemens', 'Mitsubishi', 'Delta'], c:0},
+
+  {q:'P34: ¿A qué página debes ir para ver el conector de telemetría?', a:['Página 4', 'Página 15', 'Página 2', 'Página 8'], c:1},
+
+  {q:'P35: ¿Qué significa la sigla "NC" en un contacto de relé?', a:['No Conectado', 'Normalmente Cerrado', 'Nivel Crítico', 'Nueva Carga'], c:1},
+
+  {q:'P52: Para alta tensión (460V) en 9 puntas, ¿cómo se conectan las bobinas?', a:['En Paralelo', 'En Serie (Estrella)', 'Se eliminan 3 puntas', 'Directo a tierra'], c:1},
+
+  {q:'P37: ¿Cuál es la función del transformador en el panel?', a:['Aumentar corriente', 'Reducir voltaje para control', 'Medir energía', 'Filtrar ruido'], c:1},
+
+  {q:'P38: En el índice, ¿qué tema trata la página 4?', a:['Entradas PLC', 'Harting Resistencias', 'Distribución Panel', 'Potencia Principal'], c:1},
+
+  {q:'P39: ¿Para qué sirve el variador de frecuencia?', a:['Controlar temperatura', 'Controlar velocidad de motor', 'Medir presión', 'Protección térmica'], c:1},
+
+  {q:'P40: ¿Qué elemento se usa para el paro de emergencia?', a:['Selector', 'HMI', 'Pulsador tipo hongo', 'Interruptor'], c:2},
+
+  {q:'P41: Voltaje de las luces piloto del panel:', a:['480V', '120V', '24V DC', '220V'], c:1},
+
+  {q:'P42: ¿Qué componente evita cortocircuitos en el secundario?', a:['Fusibles', 'Borneras', 'Luz piloto', 'Gabinete'], c:0},
+
+  {q:'P43: ¿Cómo se identifica el neutro en el esquema?', a:['L1', 'GND', 'N', 'PE'], c:2},
+
+  {q:'P44: ¿Cómo se identifica la tierra física?', a:['T', 'PE / GND', 'L3', 'C'], c:1},
+
+  {q:'P45: ¿Qué cable se usa para señales analógicas?', a:['THHN', 'Cable apantallado/shield', 'Utopía', 'Paralelo'], c:1},
+
+  {q:'P46: Función de las borneras en el panel:', a:['Generar voltaje', 'Puntos de conexión y orden', 'Protección térmica', 'Lógica programable'], c:1},
+
+  {q:'P47: ¿Qué hace el relé de 24V?', a:['Maneja alta potencia', 'Interfaz entre PLC y carga', 'Mide temperatura', 'Cambia la frecuencia'], c:1},
+
+  {q:'P48: ¿Dónde se monta el PLC normalmente?', a:['Puerta del panel', 'Riel DIN', 'Fondo del gabinete', 'Exterior de la máquina'], c:1},
+
+  {q:'P49: ¿Qué instrumento mide la temperatura en el proceso?', a:['Termocupla/RTD', 'Amperímetro', 'Voltímetro', 'Presostato'], c:0},
+
+  {q:'P50: ¿Para qué sirve el extractor/abanico del panel?', a:['Limpiar polvo', 'Enfriar componentes internos', 'Mover la máquina', 'Secar el producto'], c:1},
+
 ];
 
+  //{q:'P51: En un motor de 9 puntas, ¿qué conexión se usa para bajo voltaje (230V)?', a:['Doble Estrella (Paralelo)', 'Estrella Serie', 'Delta Simple', 'Conexión Zig-Zag'], c:0},
+  //{q:'P52: Para alta tensión (460V) en 9 puntas, ¿cómo se conectan las bobinas?', a:['En Paralelo', 'En Serie (Estrella)', 'Se eliminan 3 puntas', 'Directo a tierra'], c:1},
+  //{q:'P53: ¿Qué terminales se unen para el punto neutro en Alta Tensión (9 puntas)?', a:['1-2-3', '7-8-9', '4-5-6', '1-7, 2-8, 3-9'], c:2},
+  //{q:'P54: En conexión Doble Estrella (Bajo Voltaje), ¿qué terminales van a la línea L1?', a:['1 y 7', '2 y 8', '3 y 9', '4, 5 y 6'], c:0},
+  //{q:'P55: ¿Qué sucede si conectas un motor en Delta (230V) a una red de 480V?', a:['Aumenta la velocidad', 'Se quema el devanado por sobrevoltaje', 'Consume menos corriente', 'Funciona normalmente'], c:1},
+  //{q:'P56: En un motor de 12 puntas, ¿qué conexión representa el mayor voltaje?', a:['Estrella Serie', 'Estrella Paralelo', 'Delta Paralelo', 'Doble Delta'], c:0},
+  //{q:'P57: ¿Cuál es el beneficio de arrancar en Estrella y cambiar a Delta?', a:['Aumentar el torque inicial', 'Reducir la corriente de arranque', 'Invertir el giro automáticamente', 'Proteger contra rayos'], c:1},
+  // {q:'P58: Para bajo voltaje en 12 puntas (Delta Paralelo), ¿qué terminales se unen?', a:['1-6-7-12', '1-12, 2-10, 3-11', '4-5-6', 'Todas las puntas'], c:1},
+  //{q:'P59: ¿Qué herramienta usas para verificar el aislamiento antes de conectar?', a:['Multímetro (Continuidad)', 'Megóhmetro (Megger)', 'Pinza Amperimétrica', 'Tacómetro'], c:1},
+  //{q:'P60: En un motor trifásico, ¿qué determina la velocidad de rotación?', a:['El voltaje aplicado', 'La frecuencia y el número de polos', 'El tamaño del eje', 'La conexión Estrella o Delta'], c:1}
+  
 let questions = [], currentIndex = 0, userAnswers = [], studentData = {};
 let timerInterval, remainingSeconds = 20 * 60;
 
