@@ -1,7 +1,7 @@
 [
   {
     "Nombre": "Leomar",
-    "Apellido": "Sánchez",
+    "Apellido": "SÃ¡nchez",
     "Identificacion": "23611",
     "Puntaje": "26%",
     "Correctas": 13,
@@ -9,10 +9,18 @@
   },
   {
     "Nombre": "Humberto",
-    "Apellido": "Ure�a de leon",
+    "Apellido": "Ureña de leon",
     "Identificacion": "21705",
     "Puntaje": 20,
     "Correctas": 10,
     "Fecha": "24/4/2026, 9:33:45 p.m."
+  },
+  {
+    "Nombre": "Humberto",
+    "Apellido": "Ure�a de leon",
+    "Identificacion": "21705",
+    "Puntaje": 0,
+    "Correctas": 0,
+    "Fecha": "24/4/2026, 9:55:44 p.m."
   }
 ]
